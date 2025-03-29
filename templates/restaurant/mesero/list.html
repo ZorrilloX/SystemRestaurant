@@ -1,0 +1,41 @@
+{% extends "restaurant/base.html" %}
+{% block content %}
+
+<div class="container mt-4" >
+    <h1 class="mb-3">Lista de Meseros contratados</h1>
+    <a href="{% url 'meseros_create' %}" class="btn btn-success mb-3">
+        Contratar nuevo Mesero
+    </a>
+
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Telefono</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for mesero in mesero_list %}
+            <tr>
+                <td>{{ mesero.nombre }}</td>
+                <td>{{ mesero.apellido }}</td>
+                <td>{{ mesero.telefono }}</td>
+
+                <td>
+                    <a href="{% url 'meseros_update' mesero.id %}" class="btn btn-primary ">Editar</a>
+                    <form action="{% url 'meseros_delete' mesero.id %}" method="post" class="d-inline"
+                          onsubmit="return confirm('¿Seguro que deseas eliminar este meserito 🥺?');">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </form>
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

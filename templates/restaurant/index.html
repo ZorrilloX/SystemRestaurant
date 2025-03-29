@@ -1,0 +1,33 @@
+{% extends "restaurant/base.html" %}
+{% block content %}
+<!-- aqui contendremos a todos los modelos, este es un panel de control -->
+<div class="container mt-4">
+    <h1>Bienvenido al Restaurante</h1>
+    <div class="row">
+        <!-- Enlace a la lista de clientes -->
+        <div class="col-md-4 text-center">
+            <a href="{% url 'clientes' %}">
+                <img src="../restaurant/img/clientes.jpg" alt="Clientes">
+                <p>Clientes</p>
+            </a>
+        </div>
+
+        <!-- Enlace a la lista de productos -->
+        <div class="col-md-4 text-center">
+            <a href="{% url 'clientes' %}">
+                <img src="../restaurant/img/clientes.jpg" alt="Productos" class="img-fluid" style="width: 100%; height: auto;">
+                <p>Productos</p>
+            </a>
+        </div>
+
+        <!-- Enlace a la lista de órdenes -->
+        <div class="col-md-4 text-center">
+            <a href="{% url 'clientes' %}">
+                <img src="../restaurant/img/clientes.jpg" alt="Órdenes" class="img-fluid" style="width: 100%; height: auto;">
+                <p>Órdenes</p>
+            </a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
