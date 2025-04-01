@@ -23,5 +23,4 @@ class ClienteUpdateView(UpdateView):
 
 class ClienteDeleteView(DeleteView):
     model = Cliente
-    template_name = "restaurant/decoradores/confirm_delete.html"  # Nuevo template
     success_url = reverse_lazy("clientes")

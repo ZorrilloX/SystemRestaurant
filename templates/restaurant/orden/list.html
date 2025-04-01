@@ -1,0 +1,31 @@
+{% extends "restaurant/base.html" %}
+{% block content %}
+  <h2>Órdenes</h2>
+  <a href="{% url 'ordenes_create' %}">Crear nueva orden</a>
+  <ul>
+    {% for orden in orden_list %}
+      <li>
+        Orden #{{ orden.id }} - Mesa: {{ orden.mesa.numero }} - Estado: {{ orden.estado }}<br>
+        Meseros:
+        {% for mesero in orden.meseros.all %}
+          {{ mesero }}{% if not forloop.last %}, {% endif %}
+        {% endfor %}<br>
+        Platos:
+        {% for plato in orden.platos.all %}
+          {{ plato }}{% if not forloop.last %}, {% endif %}
+        {% endfor %}<br>
+        {% if orden.estado == "abierta" %}
+          <a href="{% url 'ordenes_update' orden.id %}">Editar</a> |
+          <a href="{% url 'ordenes_pagar' orden.id %}">Ir a Pagar</a> |
+            <form action="{% url 'ordenes_delete' orden.id %}" method="post" class="d-inline"
+                onsubmit="return confirm('Seguro que deceas eliminar esta orden?')" >
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Eliminar</button>
+            </form>
+        {% else %}
+            <p><b>PAGADO</b> - Cliente: {{ orden.cliente_nombre }} NIT: {{ orden.cliente_nit }}</p>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

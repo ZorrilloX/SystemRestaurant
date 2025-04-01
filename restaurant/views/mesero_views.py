@@ -23,5 +23,4 @@ class MeseroUpdateView(UpdateView):
 
 class MeseroDeleteView(DeleteView):
     model = Mesero
-    template_name = "restaurant/decoradores/confirm_delete.html"  # Nuevo template
     success_url = reverse_lazy("meseros")

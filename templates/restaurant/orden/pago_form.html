@@ -1,0 +1,11 @@
+{% extends "restaurant/base.html" %}
+{% block content %}
+  <h2>Pagar Orden #{{ orden.id }}</h2>
+  <p>Ingrese los datos del cliente para cerrar la orden.</p>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Pagar y Cerrar Orden</button>
+  </form>
+  <a href="{% url 'ordenes' %}">Cancelar</a>
+{% endblock %}

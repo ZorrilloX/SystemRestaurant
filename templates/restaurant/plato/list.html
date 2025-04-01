@@ -1,0 +1,39 @@
+{% extends "restaurant/base.html" %}
+{% block content %}
+
+<div class="container mt-4" >
+    <h1 class="mb-3">Lista de Platillos</h1>
+    <a href="{% url 'platos_create' %}" class="btn btn-success mb-3">
+        Agregar Nuevo Plato
+    </a>
+
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Nombre del Platillo</th>
+                <th>descripcion</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for plato in plato_list %}
+            <tr>
+                <td><h5>{{ plato.nombre }}</h5></td>
+                <td>{{ plato.descripcion }}</td>
+
+                <td>
+                    <a href="{% url 'platos_update' plato.id %}" class="btn btn-primary">Editar</a>
+                    <form action="{% url 'platos_delete' plato.id %}" method="post" class="d-inline"
+                          onsubmit="return confirm('¿Seguro que deseas sacar este plato de tu menu?');">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </form>
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
