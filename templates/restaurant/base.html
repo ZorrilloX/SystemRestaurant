@@ -14,16 +14,13 @@
     <!-- agregamos un fondo general y especifico para cada view -->
     <style>
           body {background-color: #8e95b1;}
-          {% block custom_style %}{% endblock %}
     </style>
+    {% block custom_style %}{% endblock %}
 </head>
 
 <body>
     {% block content %}
     {% endblock %}
-
-    <!--incluimos mi modal de confirmacion generico-->
-    {% include "restaurant/decoradores/confirm_delete.html" %}
 
 
 </body>

@@ -1,31 +1,76 @@
 {% extends "restaurant/base.html" %}
+{% load static %}
 {% block content %}
-  <h2>Órdenes</h2>
-  <a href="{% url 'ordenes_create' %}">Crear nueva orden</a>
-  <ul>
-    {% for orden in orden_list %}
-      <li>
-        Orden #{{ orden.id }} - Mesa: {{ orden.mesa.numero }} - Estado: {{ orden.estado }}<br>
-        Meseros:
-        {% for mesero in orden.meseros.all %}
-          {{ mesero }}{% if not forloop.last %}, {% endif %}
-        {% endfor %}<br>
-        Platos:
-        {% for plato in orden.platos.all %}
-          {{ plato }}{% if not forloop.last %}, {% endif %}
-        {% endfor %}<br>
+  <div class="container mt-4">
+    <h2 class="mb-4 text-white">Órdenes</h2>
+    <a href="{% url 'ordenes_create' %}" class="btn btn-primary mb-3">Crear nueva orden</a>
+
+    <div class="row">
+      {% for orden in orden_list %}
+        <div class="col-md-3 mb-4 ">
         {% if orden.estado == "abierta" %}
-          <a href="{% url 'ordenes_update' orden.id %}">Editar</a> |
-          <a href="{% url 'ordenes_pagar' orden.id %}">Ir a Pagar</a> |
-            <form action="{% url 'ordenes_delete' orden.id %}" method="post" class="d-inline"
-                onsubmit="return confirm('Seguro que deceas eliminar esta orden?')" >
-                {% csrf_token %}
-                <button type="submit" class="btn btn-danger">Eliminar</button>
-            </form>
+            <div class="card h-100 " >
         {% else %}
-            <p><b>PAGADO</b> - Cliente: {{ orden.cliente_nombre }} NIT: {{ orden.cliente_nit }}</p>
+            <div class="card h-100  alert-warning " >
         {% endif %}
-      </li>
-    {% endfor %}
-  </ul>
+
+            <img src="{% static 'img/orden_default.png' %}" class="card-img-top" alt="Orden {{ orden.id }}">
+            <div class="card-body">
+              <h5 class="card-title">Orden #{{ orden.id }}</h5>
+              <p class="card-text">
+                <b>Mesa:</b> {{ orden.mesa.numero }}<br>
+                <b>Estado:</b> {{ orden.estado }}<br>
+                <b>Meseros:</b>
+                {% for mesero in orden.meseros.all %}
+                  {{ mesero }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}<br>
+                <b>Platos:</b>
+                {% for plato in orden.platos.all %}
+                  {{ plato }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+              </p>
+
+              {% if orden.estado == "abierta" %}
+                <a href="{% url 'ordenes_update' orden.id %}" class="btn btn-warning btn-sm">Editar</a>
+                <a href="{% url 'ordenes_pagar' orden.id %}" class="btn btn-success btn-sm">Ir a Pagar</a>
+                <form action="{% url 'ordenes_delete' orden.id %}" method="post" class="d-inline"
+                      onsubmit="return confirm('¿Seguro que deseas eliminar esta orden?')">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                </form>
+              {% else %}
+                <div class="alert alert-success mt-2">
+                  <b>PAGADO</b>
+                    <br>
+                    Cliente: {{ orden.cliente_nombre }}
+                    <br>
+                    NIT: {{ orden.cliente_nit }}
+                </div>
+                  <!--manener o no mantener, ese es el dilema...-->
+                  <a href="{% url 'ordenes_update' orden.id %}" class="btn btn-warning btn-sm">Editar</a>
+                    <form action="{% url 'ordenes_delete' orden.id %}" method="post" class="d-inline"
+                          onsubmit="return confirm('¿Seguro que deseas eliminar esta orden?')">
+                      {% csrf_token %}
+                      <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                    </form>
+
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
 {% endblock %}
+
+{% block custom_style %}
+  <style>
+    body {
+      background-image: url("{% static 'img/fondo_main.png' %}");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+  </style>
+{% endblock %}
+

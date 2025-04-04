@@ -1,7 +1,7 @@
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
-from restaurant.models import Orden
+from restaurant.models import Orden, Cliente
 
 
 class OrdenListView(ListView):
@@ -43,6 +43,13 @@ class OrdenPagarUpdateView(UpdateView):
         if not cliente_nombre or not cliente_nit:
             form.add_error(None, "Debe ingresar el nombre y el NIT del cliente.")
             return self.form_invalid(form)
+
+        #Buscar cliente por NIT en la base de datos si no existe lo crea. si existe no pasa nada
+        cliente, created = Cliente.objects.get_or_create(
+            nit = cliente_nit, defaults={'nombre': cliente_nombre})
+        #asignar cliente a la orden
+        form.instance.cliente = cliente
+
         form.instance.estado = 'cerrada'
         return super().form_valid(form)
 

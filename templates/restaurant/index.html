@@ -1,33 +1,89 @@
 {% extends "restaurant/base.html" %}
+{%  load static %}
 {% block content %}
-<!-- aqui contendremos a todos los modelos, este es un panel de control -->
-<div class="container mt-4">
-    <h1>Bienvenido al Restaurante</h1>
-    <div class="row">
-        <!-- Enlace a la lista de clientes -->
-        <div class="col-md-4 text-center">
-            <a href="{% url 'clientes' %}">
-                <img src="../restaurant/img/clientes.jpg" alt="Clientes">
-                <p>Clientes</p>
-            </a>
-        </div>
+<div class="container mt-5">
+  <h1 class="text-center mb-4 text-white">🍽️ Bienvenido al Restaurante</h1>
 
-        <!-- Enlace a la lista de productos -->
-        <div class="col-md-4 text-center">
-            <a href="{% url 'clientes' %}">
-                <img src="../restaurant/img/clientes.jpg" alt="Productos" class="img-fluid" style="width: 100%; height: auto;">
-                <p>Productos</p>
-            </a>
+  <div class="row g-4">
+    <!-- Clientes -->
+    <div class="col-md-4 text-center">
+      <a class="text-dark" href={% url "clientes" %}>
+        <div class="card shadow">
+          <img src="https://cdn-icons-png.flaticon.com/512/2922/2922510.png" class="card-img-top p-3" alt="Clientes">
+          <div class="card-body">
+            <h5 class="card-title">Clientes</h5>
+          </div>
         </div>
-
-        <!-- Enlace a la lista de órdenes -->
-        <div class="col-md-4 text-center">
-            <a href="{% url 'clientes' %}">
-                <img src="../restaurant/img/clientes.jpg" alt="Órdenes" class="img-fluid" style="width: 100%; height: auto;">
-                <p>Órdenes</p>
-            </a>
-        </div>
+      </a>
     </div>
-</div>
 
+    <!-- Meseros -->
+    <div class="col-md-4 text-center">
+      <a class="text-decoration-none text-dark" href={% url "meseros" %}>
+        <div class="card shadow">
+          <img src="https://cdn-icons-png.flaticon.com/512/2830/2830303.png" class="card-img-top p-3" alt="Meseros">
+          <div class="card-body">
+            <h5 class="card-title">Meseros</h5>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <!-- Platos -->
+    <div class="col-md-4 text-center">
+      <a class="text-decoration-none text-dark"  href={% url "platos" %}>
+        <div class="card shadow">
+          <img src="https://cdn-icons-png.flaticon.com/512/135/135620.png" class="card-img-top p-3" alt="Platos">
+          <div class="card-body">
+            <h5 class="card-title">Platos</h5>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <!-- Mesas -->
+    <div class="col-md-6 text-center">
+      <a class="text-decoration-none text-dark"  href={% url "mesas" %}>
+        <div class="card shadow">
+          <img src="https://cdn-icons-png.flaticon.com/512/1030/1030986.png" class="card-img-top p-3" alt="Mesas">
+          <div class="card-body">
+            <h5 class="card-title">Mesas</h5>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <!-- Órdenes -->
+    <div class="col-md-6 text-center">
+      <a class="text-decoration-none text-dark" href={% url "ordenes" %}>
+        <div class="card shadow">
+          <img src="https://cdn-icons-png.flaticon.com/512/2921/2921822.png" class="card-img-top p-3" alt="Órdenes">
+          <div class="card-body">
+            <h5 class="card-title">Órdenes</h5>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block custom_style %}
+  <style>
+    body {
+      background-image: url("{% static 'img/fondo_main.png' %}");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+     .card {
+      max-width: 280px;
+      margin: auto;
+         padding: 20px;
+    }
+    .card img {
+      width: 100px;
+      height: 100px;
+    }
+  </style>
 {% endblock %}
